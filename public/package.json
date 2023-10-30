@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "datatables.net-bs5": "^1.13.6",
+    "toastr": "^2.1.4"
+  }
+}
