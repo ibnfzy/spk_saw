@@ -2,6 +2,9 @@
 
 namespace Config;
 
+use App\Filters\AdminAuth;
+use App\Filters\KepalaSekolahAuth;
+use App\Filters\SiswaAuth;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -20,11 +23,14 @@ class Filters extends BaseConfig
      * @phpstan-var array<string, class-string|list<class-string>>
      */
     public array $aliases = [
-        'csrf'          => CSRF::class,
-        'toolbar'       => DebugToolbar::class,
-        'honeypot'      => Honeypot::class,
-        'invalidchars'  => InvalidChars::class,
+        'csrf' => CSRF::class,
+        'toolbar' => DebugToolbar::class,
+        'honeypot' => Honeypot::class,
+        'invalidchars' => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'admin' => AdminAuth::class,
+        'siswa' => SiswaAuth::class,
+        'kepala' => KepalaSekolahAuth::class,
     ];
 
     /**
@@ -67,5 +73,24 @@ class Filters extends BaseConfig
      * Example:
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
      */
-    public array $filters = [];
+    public array $filters = [
+        'admin' => [
+            'before' => [
+                'AdmPanel',
+                'AdmPanel/*'
+            ]
+        ],
+        'siswa' => [
+            'before' => [
+                'SiswaPanel',
+                'SiswaPanel/*',
+            ]
+        ],
+        'kepala' => [
+            'before' => [
+                'Panel',
+                'Panel/*'
+            ]
+        ]
+    ];
 }

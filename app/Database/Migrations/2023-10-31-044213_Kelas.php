@@ -15,7 +15,7 @@ class Kelas extends Migration
             ],
             'nama_kelas' => [
                 'type' => 'CHAR',
-                'constraint' => 3
+                'constraint' => 5
             ]
         ]);
 

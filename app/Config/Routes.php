@@ -28,7 +28,7 @@ $routes->group('AdmPanel', ['namespace' => 'App\Controllers'], function (RouteCo
   $routes->get('Laporan', 'AdmController::laporan');
 });
 
-$routes->group('Panel', ['namespace' => 'App\Controllers'], function (RouteCollection $routes) {
+$routes->group('SiswaPanel', ['namespace' => 'App\Controllers'], function (RouteCollection $routes) {
   $routes->get('/', 'SiswaController::index');
 
 });
