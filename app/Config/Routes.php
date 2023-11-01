@@ -21,8 +21,18 @@ $routes->group('AdmPanel', ['namespace' => 'App\Controllers'], function (RouteCo
   });
 
   $routes->get('Rank', 'AdmController::index');
+
   $routes->get('Kriteria', 'AdmController::kriteria');
+  $routes->post('Kriteria', 'AdmController::kriteria_create');
+  $routes->post('Kriteria/Edit', 'AdmController::kriteria_edit');
+  $routes->get('Kriteria/(:num)', 'AdmController::kriteria_delete/$1');
+
   $routes->get('Siswa', 'AdmController::siswa');
+  $routes->post('Siswa', 'AdmController::siswa_add');
+  $routes->post('Siswa/Edit', 'AdmController::siswa_edit');
+  $routes->post('Siswa/Pwd', 'AdmController::siswa_password');
+  $routes->get('Siswa/(:num)', 'AdmController::siswa_delete/$1');
+
   $routes->get('MataPelajaran', 'AdmController::mapel');
   $routes->get('Kelas', 'AdmController::kelas');
   $routes->get('Laporan', 'AdmController::laporan');

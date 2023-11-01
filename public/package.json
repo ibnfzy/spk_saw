@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "datatables.net-bs5": "^1.13.6",
+    "inputmask": "^5.0.8",
     "toastr": "^2.1.4"
   }
 }

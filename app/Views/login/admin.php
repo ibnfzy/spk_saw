@@ -31,14 +31,14 @@
               <div class="brand-logo">
                 <h2>Form Login Admin</h2>
               </div>
-              <form class="pt-3" action="#" method="POST">
+              <form class="pt-3" action="<?= base_url('Adm/Login'); ?>" method="POST">
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1"
-                    placeholder="Username">
+                  <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username"
+                    name="username">
                 </div>
                 <div class="form-group">
                   <input type="password" class="form-control form-control-lg" id="exampleInputPassword1"
-                    placeholder="Password">
+                    placeholder="Password" name="password">
                 </div>
                 <div class="mt-3">
                   <button type="submit"
@@ -69,29 +69,29 @@
   <!-- Custom js for this page -->
   <!-- End custom js for this page -->
   <script>
-  new DataTable('#datatables');
+    new DataTable('#datatables');
   </script>
 
   <?= $this->renderSection('script'); ?>
 
   <script>
-  toastr.options = {
-    "closeButton": true,
-    "debug": false,
-    "newestOnTop": true,
-    "progressBar": true,
-    "positionClass": "toast-top-right",
-    "preventDuplicates": true,
-    "onclick": null,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-  }
+    toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "newestOnTop": true,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": true,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
   </script>
 
   <?php
