@@ -158,17 +158,111 @@ class AdmController extends BaseController
         $this->db->table('siswa')->where('id_siswa', $id)->delete();
 
         return redirect()->to(base_url('AdmPanel/Siswa'))->with('type-status', 'success')
-            ->with('message', 'Data berhasil diubah');
+            ->with('message', 'Data berhasil dihapus');
     }
 
     public function mapel()
     {
-        return view('admin/mapel');
+        return view('admin/mapel', [
+            'data' => $this->db->table('mata_pelajaran')->get()->getResultArray(),
+        ]);
+    }
+
+    public function mapel_add()
+    {
+        $rules = [
+            'nama_mapel' => 'required'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->to(base_url('AdmPanel/MataPelajaran'))->with('type-status', 'error')->with('dataMessage', $this->validator->getErrors());
+        }
+
+        $this->db->table('mata_pelajaran')->insert([
+            'nama_mapel' => $this->request->getPost('nama_mapel'),
+        ]);
+
+        return redirect()->to(base_url('AdmPanel/MataPelajaran'))->with('type-status', 'success')
+            ->with('message', 'Data berhasil ditambahkan');
+    }
+
+    public function mapel_edit()
+    {
+        $rules = [
+            'nama_mapel' => 'required',
+            'id_mapel' => 'required'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->to(base_url('AdmPanel/MataPelajaran'))->with('type-status', 'error')->with('dataMessage', $this->validator->getErrors());
+        }
+
+        $this->db->table('mata_pelajaran')->where('id_mapel', $this->request->getPost('id_mapel'))->update([
+            'nama_mapel' => $this->request->getPost('nama_mapel'),
+        ]);
+
+        return redirect()->to(base_url('AdmPanel/MataPelajaran'))->with('type-status', 'success')
+            ->with('message', 'Data berhasil diubah');
+    }
+
+    public function mapel_delete($id)
+    {
+        $this->db->table('mata_pelajaran')->where('id_mapel', $id)->delete();
+
+        return redirect()->to(base_url('AdmPanel/MataPelajaran'))->with('type-status', 'success')
+            ->with('message', 'Data berhasil dihapus');
     }
 
     public function kelas()
     {
-        return view('admin/kelas');
+        return view('admin/kelas', [
+            'data' => $this->db->table('kelas')->get()->getResultArray(),
+        ]);
+    }
+
+    public function kelas_add()
+    {
+        $rules = [
+            'nama_kelas' => 'required'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->to(base_url('AdmPanel/Kelas'))->with('type-status', 'error')->with('dataMessage', $this->validator->getErrors());
+        }
+
+        $this->db->table('kelas')->insert([
+            'nama_kelas' => $this->request->getPost('nama_kelas'),
+        ]);
+
+        return redirect()->to(base_url('AdmPanel/Kelas'))->with('type-status', 'success')
+            ->with('message', 'Data berhasil ditambahkan');
+    }
+
+    public function kelas_edit()
+    {
+        $rules = [
+            'nama_kelas' => 'required',
+            'id_kelas' => 'required'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->to(base_url('AdmPanel/Kelas'))->with('type-status', 'error')->with('dataMessage', $this->validator->getErrors());
+        }
+
+        $this->db->table('kelas')->where('id_kelas', $this->request->getPost('id_kelas'))->update([
+            'nama_kelas' => $this->request->getPost('nama_kelas'),
+        ]);
+
+        return redirect()->to(base_url('AdmPanel/Kelas'))->with('type-status', 'success')
+            ->with('message', 'Data berhasil diubah');
+    }
+
+    public function kelas_delete($id)
+    {
+        $this->db->table('kelas')->where('id_kelas', $id)->delete();
+
+        return redirect()->to(base_url('AdmPanel/Kelas'))->with('type-status', 'success')
+            ->with('message', 'Data berhasil dihapus');
     }
 
     public function laporan()

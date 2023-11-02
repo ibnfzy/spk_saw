@@ -34,7 +34,15 @@ $routes->group('AdmPanel', ['namespace' => 'App\Controllers'], function (RouteCo
   $routes->get('Siswa/(:num)', 'AdmController::siswa_delete/$1');
 
   $routes->get('MataPelajaran', 'AdmController::mapel');
+  $routes->get('MataPelajaran/(:num)', 'AdmController::mapel_delete/$1');
+  $routes->post('MataPelajaran', 'AdmController::mapel_add');
+  $routes->post('MataPelajaran/Edit', 'AdmController::mapel_edit');
+
   $routes->get('Kelas', 'AdmController::kelas');
+  $routes->post('Kelas', 'AdmController::kelas_add');
+  $routes->post('Kelas/Edit', 'AdmController::kelas_edit');
+  $routes->get('Kelas/(:num)', 'AdmController::kelas_delete/$1');
+
   $routes->get('Laporan', 'AdmController::laporan');
 });
 

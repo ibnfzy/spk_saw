@@ -43,9 +43,13 @@
                   <?= $get['nama_kelas'] ?? 'Kelas Tidak Ditemukan'; ?>
                 </td>
                 <td>
-                  <button class="btn btn-primary"><i class="mdi mdi-pen"></i> Edit </button>
-                  <button class="btn btn-info"><i class="mdi mdi-key"></i> Ubah Password </button>
-                  <a href="#" class="btn btn-danger"><i class="mdi mdi-delete"></i> Hapus</a>
+                  <button
+                    onclick="editModal('<?= $item['id_kelas']; ?>', '<?= $item['nama_siswa']; ?>', '<?= $item['username']; ?>', '<?= $item['id_siswa']; ?>')"
+                    class="btn btn-primary"><i class="mdi mdi-pen"></i> Edit </button>
+                  <button onclick="passwordModal('<?= $item['id_siswa']; ?>')" class="btn btn-info"><i
+                      class="mdi mdi-key"></i> Ubah Password </button>
+                  <a href="<?= base_url('AdmPanel/Siswa/' . $item['id_siswa']); ?>" class="btn btn-danger"><i
+                      class="mdi mdi-delete"></i> Hapus</a>
                 </td>
               </tr>
             <?php endforeach ?>
@@ -105,8 +109,9 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Siswa</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="<?= base_url('AdmPanel/Siswa'); ?>" method="post">
-        <input type="hidden" name="username_old">
+      <form action="<?= base_url('AdmPanel/Siswa/Edit'); ?>" method="post">
+        <input type="hidden" name="username_old" id="username_old">
+        <input type="hidden" name="id_siswa" id="id_siswa">
         <div class="modal-body">
           <div class="form-group">
             <label for="">Pilih Kelas</label>
@@ -129,7 +134,33 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Simpan</button>
+          <button type="submit" class="btn btn-primary">Ubah</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="password_update" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Password</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="<?= base_url('AdmPanel/Siswa/Pwd'); ?>" method="post">
+        <input type="hidden" name="username_old" id="username_old">
+        <input type="hidden" name="id_siswa" id="id_siswa">
+        <div class="modal-body">
+          <input type="hidden" name="id_siswa" id="id_siswa">
+          <div class="form-group">
+            <label for="">Password Baru</label>
+            <input type="password" class="form-control" name="password" id="password">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Ubah</button>
         </div>
       </form>
     </div>
@@ -141,11 +172,19 @@
 <?= $this->section('script'); ?>
 
 <script>
-
-  function editModal(id_kelas,) {
-
+  function editModal(id_kelas, nama_siswa, username, id_siswa) {
+    $('#' + id_kelas).attr('selected');
+    $('#username').val(username);
+    $('#username_old').val(username);
+    $('#id_siswa').val(id_siswa);
+    $('#nama_siswa').val(nama_siswa);
+    $('#edit').modal('toggle');
   }
 
+  function passwordModal(id_siswa) {
+    $('#id_siswa').val(id_siswa);
+    $('#password_update').modal('toggle');
+  }
 </script>
 
 <?= $this->endSection(); ?>
