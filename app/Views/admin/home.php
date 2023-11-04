@@ -3,7 +3,8 @@
 <?= $this->section('content'); ?>
 
 <div class="d-grid gap-2 d-md-block mb-3">
-  <a href="#" class="btn btn-gradient-primary shadow-lg"><i class="mdi mdi-plus"></i> Tambah
+  <a href="<?= base_url('AdmPanel/Rank/Add'); ?>" class="btn btn-gradient-primary shadow-lg"><i
+      class="mdi mdi-plus"></i> Tambah
     Data</a>
   <a href="#" class="btn btn-gradient-info shadow-lg"><i class="mdi mdi-plus-outline"></i> Proses Ranking</a>
 </div>

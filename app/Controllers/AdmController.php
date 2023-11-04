@@ -18,6 +18,13 @@ class AdmController extends BaseController
         return view('admin/home');
     }
 
+    public function tambah_alt()
+    {
+        return view('admin/alt_add', [
+            'siswa' => $this->db->table('siswa')->get()->getResultArray()
+        ]);
+    }
+
     public function kriteria()
     {
         return view('admin/kriteria', [
