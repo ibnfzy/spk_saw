@@ -13,5 +13,6 @@ class Seed extends Seeder
         $this->call('Siswa');
         $this->call('Kelas');
         $this->call('Mapel');
+        $this->call('Kriteria');
     }
 }

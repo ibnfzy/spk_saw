@@ -2,10 +2,12 @@
 
 <?= $this->section('content'); ?>
 
+<?php $db = \Config\Database::connect(); ?>
+
 <div class="d-grid gap-2 d-md-block mb-3">
-  <a href="<?= base_url('AdmPanel/Rank/Add'); ?>" class="btn btn-gradient-primary shadow-lg"><i
+  <button class="btn btn-gradient-primary shadow-lg" data-bs-toggle="modal" data-bs-target="#add"><i
       class="mdi mdi-plus"></i> Tambah
-    Data</a>
+    Data</button>
   <a href="#" class="btn btn-gradient-info shadow-lg"><i class="mdi mdi-plus-outline"></i> Proses Ranking</a>
 </div>
 
@@ -22,26 +24,73 @@
               <th>No</th>
               <th>Nama Siswa</th>
               <th>Kelas</th>
-              <th>MAPEL 1</th>
-              <th>MAPEL 2</th>
+              <?php foreach ($mapel as $item): ?>
+              <th>
+                <?= $item['nama_mapel']; ?>
+              </th>
+              <?php endforeach ?>
               <th>AKSI</th>
             </tr>
           </thead>
           <tbody>
+            <?php
+            $i = 1;
+            foreach ($data as $item): ?>
+            <?php
+              $get = $db->table('kelas')->where('id_kelas', $item['id_kelas'])->get()->getRowArray();
+              ?>
             <tr>
-              <td>1</td>
-              <td>Agung</td>
-              <td>Agung</td>
-              <td>34</td>
-              <td>60</td>
               <td>
-                <a href="#" class="btn btn-info"><i class="mdi mdi-pen"></i> Edit </a>
-                <a href="#" class="btn btn-danger"><i class="mdi mdi-delete"></i> Hapus</a>
+                <?= $i++; ?>
+              </td>
+              <td>
+                <?= $item['nama_siswa']; ?>
+              </td>
+              <td>
+                <?= $get['nama_kelas'] ?? 'Kelas tidak ditemukan'; ?>
+              </td>
+              <?php foreach ($mapel as $d): ?>
+              <?php $alt = $db->table('rank_detail')->where('id_mapel', $d['id_mapel'])->where('id_siswa', $item['id_siswa'])->get()->getRowArray(); ?>
+              <td>
+                <?= $alt['nilai_alt'] ?? 0; ?>
+              </td>
+              <?php endforeach ?>
+              <td>
+                <a href="#" class="btn btn-danger"><i class="mdi mdi-delete"></i> Hapus Nilai</a>
               </td>
             </tr>
+            <?php endforeach ?>
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Pilih Siswa</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="<?= base_url('AdmPanel/Rank/Add'); ?>" method="post">
+        <div class="modal-body">
+          <div class="form-group">
+            <select name="id_siswa" id="" class="form-control">
+              <?php foreach ($data as $item): ?>
+              <option value="<?= $item['id_siswa']; ?>">
+                <?= $item['nama_siswa']; ?>
+              </option>
+              <?php endforeach ?>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Proses</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

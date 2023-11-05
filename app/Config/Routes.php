@@ -21,7 +21,7 @@ $routes->group('AdmPanel', ['namespace' => 'App\Controllers'], function (RouteCo
   });
 
   $routes->get('Rank', 'AdmController::index');
-  $routes->get('Rank/Add', 'AdmController::tambah_alt');
+  $routes->post('Rank/Add', 'AdmController::tambah_alt');
 
   $routes->get('Kriteria', 'AdmController::kriteria');
   $routes->post('Kriteria', 'AdmController::kriteria_create');

@@ -16,7 +16,10 @@ class RankDetail extends Migration
             'id_rank' => [
                 'type' => 'INT'
             ],
-            'id_kriteria' => [
+            'id_siswa' => [
+                'type' => 'INT'
+            ],
+            'id_mapel' => [
                 'type' => 'INT'
             ],
             'nilai_alt' => [
