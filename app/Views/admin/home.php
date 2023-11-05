@@ -25,9 +25,9 @@
               <th>Nama Siswa</th>
               <th>Kelas</th>
               <?php foreach ($mapel as $item): ?>
-              <th>
-                <?= $item['nama_mapel']; ?>
-              </th>
+                <th>
+                  <?= $item['nama_mapel']; ?>
+                </th>
               <?php endforeach ?>
               <th>AKSI</th>
             </tr>
@@ -35,30 +35,53 @@
           <tbody>
             <?php
             $i = 1;
+            $idRank = null;
             foreach ($data as $item): ?>
-            <?php
+              <?php
               $get = $db->table('kelas')->where('id_kelas', $item['id_kelas'])->get()->getRowArray();
               ?>
-            <tr>
-              <td>
-                <?= $i++; ?>
-              </td>
-              <td>
-                <?= $item['nama_siswa']; ?>
-              </td>
-              <td>
-                <?= $get['nama_kelas'] ?? 'Kelas tidak ditemukan'; ?>
-              </td>
-              <?php foreach ($mapel as $d): ?>
-              <?php $alt = $db->table('rank_detail')->where('id_mapel', $d['id_mapel'])->where('id_siswa', $item['id_siswa'])->get()->getRowArray(); ?>
-              <td>
-                <?= $alt['nilai_alt'] ?? 0; ?>
-              </td>
-              <?php endforeach ?>
-              <td>
-                <a href="#" class="btn btn-danger"><i class="mdi mdi-delete"></i> Hapus Nilai</a>
-              </td>
-            </tr>
+              <tr>
+                <td>
+                  <?= $i++; ?>
+                </td>
+                <td>
+                  <?= $item['nama_siswa']; ?>
+                </td>
+                <td>
+                  <?= $get['nama_kelas'] ?? 'Kelas tidak ditemukan'; ?>
+                </td>
+                <?php foreach ($mapel as $d): ?>
+                  <?php
+
+                  $nilaiArr = [];
+                  $isNull = true;
+
+                  foreach ($kriteria as $f) {
+                    $alt = $db->table('rank_detail')->where('id_mapel', $d['id_mapel'])->where('id_siswa', $item['id_siswa'])->where('id_kriteria', $f['id_kriteria'])->get()->getRowArray();
+                    $idRank = $alt['id_rank'] ?? null;
+
+                    $nilaiAlt = $alt['nilai_alt'] ?? 0;
+                    $isNull = !isset($alt['nilai_alt']) ? true : false;
+
+                    $nilaiArr[] = $nilaiAlt * ($f['bobot'] / 100);
+                  }
+
+                  ?>
+                  <td>
+                    <?= ($isNull) ? 0 : array_sum($nilaiArr); ?>
+                  </td>
+                <?php endforeach ?>
+                <td>
+                  <?php if ($idRank != null): ?>
+                    <a href="<?= base_url('AdmPanel/Rank/' . $idRank); ?>" class="btn btn-danger"><i
+                        class="mdi mdi-delete"></i> Hapus
+                      Nilai</a>
+                  <?php else: ?>
+                    <a href="#" class="btn btn-danger"><i class="mdi mdi-delete"></i> Hapus
+                      Nilai</a>
+                  <?php endif; ?>
+                </td>
+              </tr>
             <?php endforeach ?>
           </tbody>
         </table>
@@ -79,9 +102,9 @@
           <div class="form-group">
             <select name="id_siswa" id="" class="form-control">
               <?php foreach ($data as $item): ?>
-              <option value="<?= $item['id_siswa']; ?>">
-                <?= $item['nama_siswa']; ?>
-              </option>
+                <option value="<?= $item['id_siswa']; ?>">
+                  <?= $item['nama_siswa']; ?>
+                </option>
               <?php endforeach ?>
             </select>
           </div>

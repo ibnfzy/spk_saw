@@ -8,7 +8,7 @@
       <div class="card-header">
         <h3 class="card-title">Form Tambah Data Alternatif</h3>
       </div>
-      <form action="#" method="post">
+      <form action="<?= base_url('AdmPanel/Rank/Save'); ?>" method="post">
         <input type="hidden" name="id_siswa" value="<?= $dataSiswa['id_siswa']; ?>">
         <div class="card-body">
           <div class="col-6">
@@ -24,25 +24,25 @@
 
           <div class="row">
             <?php foreach ($mapel as $item): ?>
-            <div class="col-md-6">
-              <div class="col-sm-4">
-                <h4 class="font-weight-bold">
-                  <?= $item['nama_mapel']; ?>
-                </h4>
+              <div class="col-md-6">
+                <div class="col-sm-4">
+                  <h4 class="font-weight-bold">
+                    <?= $item['nama_mapel']; ?>
+                  </h4>
 
-                <hr>
-              </div>
+                  <hr>
+                </div>
 
-              <?php foreach ($kriteria as $alt): ?>
-              <div class="form-group">
-                <label for="">
-                  <?= $alt['nama_kriteria']; ?>
-                </label>
-                <input type="text" class="form-control nilai"
-                  name="alt[<?= $item['id_mapel'] ;?>][<?= $alt['id_kriteria'] ;?>]">
+                <?php foreach ($kriteria as $alt): ?>
+                  <div class="form-group">
+                    <label for="">
+                      <?= $alt['nama_kriteria']; ?>
+                    </label>
+                    <input type="text" class="form-control nilai"
+                      name="alt[<?= $item['id_mapel']; ?>][<?= $alt['id_kriteria']; ?>]" required>
+                  </div>
+                <?php endforeach ?>
               </div>
-              <?php endforeach ?>
-            </div>
             <?php endforeach ?>
           </div>
 
@@ -60,9 +60,9 @@
 <?= $this->section('script'); ?>
 
 <script>
-inputNilai = document.getElementsByClassName('nilai');
+  inputNilai = document.getElementsByClassName('nilai');
 
-Inputmask('999').mask(inputNilai);
+  Inputmask('999').mask(inputNilai);
 </script>
 
 <?= $this->endSection(); ?>

@@ -22,6 +22,9 @@ class RankDetail extends Migration
             'id_mapel' => [
                 'type' => 'INT'
             ],
+            'id_kriteria' => [
+                'type' => 'INT'
+            ],
             'nilai_alt' => [
                 'type' => 'INT'
             ]

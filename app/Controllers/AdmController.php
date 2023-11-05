@@ -18,6 +18,7 @@ class AdmController extends BaseController
         return view('admin/home', [
             'data' => $this->db->table('siswa')->get()->getResultArray(),
             'mapel' => $this->db->table('mata_pelajaran')->get()->getResultArray(),
+            'kriteria' => $this->db->table('kriteria')->get()->getResultArray(),
         ]);
     }
 
@@ -28,6 +29,50 @@ class AdmController extends BaseController
             'mapel' => $this->db->table('mata_pelajaran')->get()->getResultArray(),
             'kriteria' => $this->db->table('kriteria')->get()->getResultArray(),
         ]);
+    }
+
+    public function simpan_alt()
+    {
+        $this->db->table('rank')->where('id_siswa', $this->request->getPost('id_siswa'))->delete();
+        $this->db->table('rank_detail')->where('id_siswa', $this->request->getPost('id_siswa'))->delete();
+
+        $get = $this->db->table('siswa')->where('id_siswa', $this->request->getPost('id_siswa'))->get()->getRowArray();
+
+        $this->db->table('rank')->insert([
+            'id_kelas' => $get['id_kelas'],
+            'id_siswa' => $get['id_siswa'],
+        ]);
+
+        $getLastRow = $this->db->table('rank')->orderBy('id_rank', 'DESC')->get()->getRowArray();
+
+        $data = [];
+        foreach ($this->request->getPost('alt') as $id_mapel => $alt) {
+            foreach ($alt as $id_kriteria => $value) {
+                $nilai = (int) str_replace('_', '', $value);
+
+                $data[] = [
+                    'id_rank' => $getLastRow['id_rank'],
+                    'id_siswa' => $this->request->getPost('id_siswa'),
+                    'id_mapel' => $id_mapel,
+                    'id_kriteria' => $id_kriteria,
+                    'nilai_alt' => $nilai
+                ];
+            }
+        }
+
+        $this->db->table('rank_detail')->insertBatch($data);
+
+        return redirect()->to(base_url('AdmPanel/Rank'))->with('type-status', 'success')
+            ->with('message', 'Data berhasil ditambahkan');
+    }
+
+    public function delete_alt($id)
+    {
+        $this->db->table('rank')->where('id_rank', $id)->delete();
+        $this->db->table('rank_detail')->where('id_rank', $id)->delete();
+
+        return redirect()->to(base_url('AdmPanel/Rank'))->with('type-status', 'success')
+            ->with('message', 'Data berhasil dihapus');
     }
 
     public function kriteria()

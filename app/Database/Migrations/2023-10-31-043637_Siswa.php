@@ -11,7 +11,7 @@ class Siswa extends Migration
         $this->forge->addField([
             'id_siswa' => [
                 'type' => 'INT',
-                'auto_incremenet' => true
+                'auto_increment' => true
             ],
             'id_kelas' => [
                 'type' => 'INT'

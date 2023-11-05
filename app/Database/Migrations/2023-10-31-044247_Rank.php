@@ -20,7 +20,8 @@ class Rank extends Migration
                 'type' => 'INT'
             ],
             'rank' => [
-                'type' => 'INT'
+                'type' => 'INT',
+                'null' => true
             ],
         ]);
 
