@@ -43,6 +43,9 @@ $routes->group('AdmPanel', ['namespace' => 'App\Controllers'], function (RouteCo
   $routes->post('Kelas', 'AdmController::kelas_add');
   $routes->post('Kelas/Edit', 'AdmController::kelas_edit');
   $routes->get('Kelas/(:num)', 'AdmController::kelas_delete/$1');
+  $routes->get('Kelas/Mapel/(:num)', 'AdmController::kelas_mapel/$1');
+  $routes->get('Kelas/Mapel/delete/(:num)', 'AdmController::kelas_mapel_delete/$1');
+  $routes->post('Kelas/Mapel', 'AdmController::kelas_mapel_add');
 
   $routes->get('Laporan', 'AdmController::laporan');
 });

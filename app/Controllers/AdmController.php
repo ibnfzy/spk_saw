@@ -224,7 +224,54 @@ class AdmController extends BaseController
     {
         return view('admin/kelas', [
             'data' => $this->db->table('kelas')->get()->getResultArray(),
+            'dataMapel' => $this->db->table('mata_pelajaran')->get()->getResultArray(),
         ]);
+    }
+
+    public function kelas_mapel($id)
+    {
+        $get = $this->db->table('kelas_mapel')->where('id_kelas', $id)->get()->getResultArray();
+
+        $data = [];
+
+        foreach ($get as $row) {
+            $kelas = $this->db->table('mata_pelajaran')->where('id_mapel', $row['id_mapel'])->get()->getRowArray();
+
+            $data[] = [
+                'id_kelas_mapel' => $row['id_kelas_mapel'],
+                'nama_mapel' => $kelas['nama_mapel']
+            ];
+        }
+
+        return $this->response->setJSON($data);
+    }
+
+    public function kelas_mapel_delete($id)
+    {
+        $this->db->table('kelas_mapel')->where('id_kelas_mapel', $id)->delete();
+
+        return redirect()->to(base_url('AdmPanel/Kelas'))->with('type-status', 'success')
+            ->with('message', 'Data berhasil dihapus');
+    }
+
+    public function kelas_mapel_add()
+    {
+        $rules = [
+            'id_kelas' => 'required',
+            'id_mapel' => 'required|is_unique[kelas_mapel.id_mapel]',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->to(base_url('AdmPanel/Kelas'))->with('type-status', 'error')->with('dataMessage', $this->validator->getErrors());
+        }
+
+        $this->db->table('kelas_mapel')->insert([
+            'id_kelas' => $this->request->getPost('id_kelas'),
+            'id_mapel' => $this->request->getPost('id_mapel'),
+        ]);
+
+        return redirect()->to(base_url('AdmPanel/Kelas'))->with('type-status', 'success')
+            ->with('message', 'Data berhasil ditambahkan');
     }
 
     public function kelas_add()
