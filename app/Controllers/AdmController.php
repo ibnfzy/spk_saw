@@ -27,7 +27,7 @@ class AdmController extends BaseController
         $rank = 1;
 
         foreach ($alternatif as $key => $alt) {
-            $alternatif[$key]['total'] = $alt['nilai_alt'] / 100;
+            $alternatif[$key]['total'] = $alt['total_nilai'] / 1000;
         }
 
         usort($alternatif, function ($a, $b) {
@@ -48,7 +48,7 @@ class AdmController extends BaseController
     public function proses()
     {
         // ganti ini
-        $data = $this->db->table('rank_detail')->get()->getResultArray();
+        $data = $this->db->query("SELECT DISTINCT id_siswa, SUM(nilai_alt) as total_nilai, id_rank FROM `rank_detail`;")->getResultArray();
 
         return view('admin/proses', [
             'alt' => $this->saw($data),
