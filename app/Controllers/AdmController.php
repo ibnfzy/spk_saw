@@ -22,6 +22,40 @@ class AdmController extends BaseController
         ]);
     }
 
+    public function saw($alternatif)
+    {
+        $rank = 1;
+
+        foreach ($alternatif as $key => $alt) {
+            $alternatif[$key]['total'] = $alt['nilai_alt'] / 100;
+        }
+
+        usort($alternatif, function ($a, $b) {
+            return $b['total'] <=> $a['total'];
+        });
+
+        foreach ($alternatif as $key => $alt) {
+            $this->db->table('rank')->where('id_rank', $alt['id_rank'])->update([
+                'rank' => $rank++
+            ]);
+        }
+
+        // $alternatif_terbaik = $alternatif[0];
+
+        return $alternatif;
+    }
+
+    public function proses()
+    {
+        // ganti ini
+        $data = $this->db->table('rank_detail')->get()->getResultArray();
+
+        return view('admin/proses', [
+            'alt' => $this->saw($data),
+            'data' => $data
+        ]);
+    }
+
     public function tambah_alt()
     {
         return view('admin/alt_add', [
