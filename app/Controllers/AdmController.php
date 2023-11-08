@@ -45,14 +45,27 @@ class AdmController extends BaseController
         return $alternatif;
     }
 
+    public function normalisasi($alternatif)
+    {
+        foreach ($alternatif as $key => $alt) {
+            $alternatif[$key]['total'] = $alt['total_nilai'] / 1000;
+        }
+
+        return $alternatif;
+    }
+
     public function proses()
     {
         // ganti ini
-        $data = $this->db->query("SELECT DISTINCT id_siswa, SUM(nilai_alt) as total_nilai, id_rank FROM `rank_detail`;")->getResultArray();
+        $data = $this->db->query("SELECT DISTINCT id_siswa, SUM(nilai_alt) as total_nilai, id_rank FROM `rank_detail` GROUP BY id_siswa;")->getResultArray();
 
         return view('admin/proses', [
-            'alt' => $this->saw($data),
-            'data' => $data
+            'alternatif' => $this->saw($data),
+            'data' => $data,
+            'mapel' => $this->db->table('mata_pelajaran')->get()->getResultArray(),
+            'dataSiswa' => $this->db->table('siswa')->get()->getResultArray(),
+            'kriteria' => $this->db->table('kriteria')->get()->getResultArray(),
+            'normalisasi' => $this->normalisasi($data)
         ]);
     }
 
