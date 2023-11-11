@@ -82,14 +82,8 @@ class Filters extends BaseConfig
         ],
         'siswa' => [
             'before' => [
-                'SiswaPanel',
-                'SiswaPanel/*',
-            ]
-        ],
-        'kepala' => [
-            'before' => [
                 'Panel',
-                'Panel/*'
+                'Panel/*',
             ]
         ]
     ];

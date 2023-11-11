@@ -8,12 +8,12 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 
 $routes->get('Adm/Login', 'AdminLogin::index');
-$routes->get('Adm/Destroy', 'AdminLogin::logout');
+$routes->get('Adm/Destroy', 'AdminLogin::logoff');
 $routes->post('Adm/Login', 'AdminLogin::auth');
 
-$routes->get('Login', 'SiswaLogin::index');
-$routes->get('Destroy', 'SiswaLogin::logout');
-$routes->post('Login', 'SiswaLogin::auth');
+$routes->get('Login', 'UserLogin::index');
+$routes->get('Destroy', 'UserLogin::logoff');
+$routes->post('Login', 'UserLogin::auth');
 
 $routes->group('AdmPanel', ['namespace' => 'App\Controllers'], function (RouteCollection $routes) {
   $routes->get('/', function () {

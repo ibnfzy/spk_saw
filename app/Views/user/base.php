@@ -20,11 +20,11 @@
 <body>
   <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
-    <?= $this->include('user/layouts/navbar'); ?>
+    <?= $this->include('user/layout/navbar'); ?>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:../../partials/_sidebar.html -->
-      <?= $this->include('user/layouts/sidebar'); ?>
+      <?= $this->include('user/layout/sidebar'); ?>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
@@ -32,7 +32,7 @@
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
-        <?= $this->include('user/layouts/footer'); ?>
+        <?= $this->include('user/layout/footer'); ?>
         <!-- partial -->
       </div>
       <!-- main-panel ends -->

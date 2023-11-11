@@ -11,7 +11,7 @@
     <ul class="navbar-nav navbar-nav-right">
 
       <li class="nav-item nav-logout d-none d-lg-block">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?= base_url('Adm/Destroy'); ?>">
           <i class="mdi mdi-logout"></i> Keluar
         </a>
       </li>

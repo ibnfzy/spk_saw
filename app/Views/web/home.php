@@ -64,7 +64,7 @@
                 </li>
 
                 <li class="nav-item ">
-                  <a class="nav-link" href="<?= base_url(); ?>"> Login Siswa </a>
+                  <a class="nav-link" href="<?= base_url('Panel'); ?>"> Login Siswa </a>
                 </li>
 
               </ul>

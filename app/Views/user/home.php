@@ -23,11 +23,10 @@
               <th>Nama Siswa</th>
               <th>Kelas</th>
               <?php foreach ($mapel as $item): ?>
-                <th>
-                  <?= $item['nama_mapel']; ?>
-                </th>
+              <th>
+                <?= $item['nama_mapel']; ?>
+              </th>
               <?php endforeach ?>
-              <th>AKSI</th>
             </tr>
           </thead>
           <tbody>
@@ -35,21 +34,21 @@
             $i = 1;
             $idRank = null;
             foreach ($data as $item): ?>
-              <?php
+            <?php
               $get = $db->table('kelas')->where('id_kelas', $item['id_kelas'])->get()->getRowArray();
               ?>
-              <tr>
-                <td>
-                  <?= $i++; ?>
-                </td>
-                <td>
-                  <?= $item['nama_siswa']; ?>
-                </td>
-                <td>
-                  <?= $get['nama_kelas'] ?? 'Kelas tidak ditemukan'; ?>
-                </td>
-                <?php foreach ($mapel as $d): ?>
-                  <?php
+            <tr>
+              <td>
+                <?= $i++; ?>
+              </td>
+              <td>
+                <?= $item['nama_siswa']; ?>
+              </td>
+              <td>
+                <?= $get['nama_kelas'] ?? 'Kelas tidak ditemukan'; ?>
+              </td>
+              <?php foreach ($mapel as $d): ?>
+              <?php
 
                   $nilaiArr = [];
                   $isNull = true;
@@ -65,21 +64,11 @@
                   }
 
                   ?>
-                  <td>
-                    <?= ($isNull) ? 0 : array_sum($nilaiArr); ?>
-                  </td>
-                <?php endforeach ?>
-                <td>
-                  <?php if ($idRank != null): ?>
-                    <a href="<?= base_url('AdmPanel/Rank/' . $idRank); ?>" class="btn btn-danger"><i
-                        class="mdi mdi-delete"></i> Hapus
-                      Nilai</a>
-                  <?php else: ?>
-                    <a href="#" class="btn btn-danger"><i class="mdi mdi-delete"></i> Hapus
-                      Nilai</a>
-                  <?php endif; ?>
-                </td>
-              </tr>
+              <td>
+                <?= ($isNull) ? 0 : array_sum($nilaiArr); ?>
+              </td>
+              <?php endforeach ?>
+            </tr>
             <?php endforeach ?>
           </tbody>
         </table>
@@ -100,9 +89,9 @@
           <div class="form-group">
             <select name="id_siswa" id="" class="form-control">
               <?php foreach ($data as $item): ?>
-                <option value="<?= $item['id_siswa']; ?>">
-                  <?= $item['nama_siswa']; ?>
-                </option>
+              <option value="<?= $item['id_siswa']; ?>">
+                <?= $item['nama_siswa']; ?>
+              </option>
               <?php endforeach ?>
             </select>
           </div>
