@@ -50,7 +50,7 @@ $routes->group('AdmPanel', ['namespace' => 'App\Controllers'], function (RouteCo
   $routes->get('Kelas/Mapel/delete/(:num)', 'AdmController::kelas_mapel_delete/$1');
   $routes->post('Kelas/Mapel', 'AdmController::kelas_mapel_add');
 
-  $routes->get('Laporan', 'AdmController::laporan');
+  $routes->get('Laporan', 'AdmController::render_laporan');
 });
 
 $routes->group('SiswaPanel', ['namespace' => 'App\Controllers'], function (RouteCollection $routes) {

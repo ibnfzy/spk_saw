@@ -416,8 +416,17 @@ class AdmController extends BaseController
             ->with('message', 'Data berhasil dihapus');
     }
 
-    public function laporan()
+    public function render_laporan()
     {
-        return view('admin/laporan');
+        $data = $this->db->query("SELECT DISTINCT id_siswa, SUM(nilai_alt) as total_nilai, id_rank FROM `rank_detail` GROUP BY id_siswa;")->getResultArray();
+
+        return view('admin/render_laporan', [
+            'alternatif' => $this->saw($data),
+            'data' => $data,
+            'mapel' => $this->db->table('mata_pelajaran')->get()->getResultArray(),
+            'dataSiswa' => $this->db->table('siswa')->get()->getResultArray(),
+            'kriteria' => $this->db->table('kriteria')->get()->getResultArray(),
+            'normalisasi' => $this->normalisasi($data)
+        ]);
     }
 }

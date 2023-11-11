@@ -54,6 +54,8 @@
   <script src="<?= base_url(); ?>node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
   <script src="<?= base_url(); ?>node_modules/toastr/build/toastr.min.js"></script>
   <script src="<?= base_url(); ?>node_modules/inputmask/dist/inputmask.js"></script>
+  <script src="<?= base_url(''); ?>/jspdf/examples/libs/jspdf.umd.js"></script>
+  <script src="<?= base_url(''); ?>/jspdf/dist/jspdf.plugin.autotable.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page -->
   <!-- End custom js for this page -->

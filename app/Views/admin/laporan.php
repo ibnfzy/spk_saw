@@ -14,7 +14,11 @@
           <div class="mb-3">
             <label for="kelas">Pilih Kelas</label>
             <select name="kelas" id="kelas" class="form-control">
-              <option value="#" disabled>PILIH KELAS</option>
+              <?php foreach ($data as $item): ?>
+                <option value="<?= $item['id_kelas']; ?>">
+                  <?= $item['nama_kelas']; ?>
+                </option>
+              <?php endforeach ?>
             </select>
           </div>
 
