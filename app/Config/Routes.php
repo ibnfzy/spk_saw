@@ -53,7 +53,15 @@ $routes->group('AdmPanel', ['namespace' => 'App\Controllers'], function (RouteCo
   $routes->get('Laporan', 'AdmController::render_laporan');
 });
 
-$routes->group('SiswaPanel', ['namespace' => 'App\Controllers'], function (RouteCollection $routes) {
-  $routes->get('/', 'SiswaController::index');
+$routes->group('Panel', ['namespace' => 'App\Controllers'], function (RouteCollection $routes) {
+  $routes->get('/', function () {
+    return redirect()->to(base_url('Panel/Rank'));
+  });
+
+  $routes->get('Rank', 'UserController::index');
+  $routes->get('Rank/Execute', 'UserController::proses');
+
+
+  $routes->get('Laporan', 'AdmController::render_laporan');
 
 });
